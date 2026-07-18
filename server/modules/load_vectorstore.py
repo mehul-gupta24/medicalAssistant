@@ -36,7 +36,10 @@ if PINECONE_INDEX_NAME not in existing_index:
         time.sleep(1) #1 second
 
 index=pc.Index(PINECONE_INDEX_NAME)
-index.delete(delete_all=True)
+try:
+    index.delete(delete_all=True)
+except Exception:
+    pass
 
 # load, split, embed and upsert pdf docs content
 
