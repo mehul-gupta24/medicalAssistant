@@ -3,10 +3,9 @@ from utils.api import ask_question
 from config import API_URL
 
 def render_chat():
-    st.subheader("💬 Chat with your assistant")
-
+    # st.subheader("💬 Chat with your assistant")
     # # show which backend the client is calling (debug)
-    st.info(f"Using API_URL: {API_URL}")
+    # st.info(f"Using API_URL: {API_URL}")
 
     if "message" not in st.session_state:
         st.session_state.messages = []
