@@ -21,10 +21,18 @@ async def ask_question(question: str = Form(...)):
     try:
         logger.info(f"User query : {question}")
 
+        # If no local PDFs have been uploaded, return a friendly prompt
+        upload_dir = os.path.join(os.getcwd(), "uploaded_docs")
+        if not os.path.exists(upload_dir) or len(os.listdir(upload_dir)) == 0:
+            return JSONResponse(status_code=200, content={
+                "response": "Hi! 👋 I'm your Medical Assistant. Please upload a medical PDF first so I can answer questions based on your documents.",
+                "sources": []
+            })
+
         # embed model + pinecone setup
         pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
         index = pc.Index(os.getenv("PINECONE_INDEX_NAME"))
-        stats = index.describe_index_stats()
+        # stats = index.describe_index_stats()
         embed_model = GoogleGenerativeAIEmbeddings(model = "models/gemini-embedding-001")
         embedded_query = embed_model.embed_query(question)
         res = index.query(vector = embedded_query, top_k=3, include_metadata=True)
@@ -54,6 +62,8 @@ async def ask_question(question: str = Form(...)):
         for d in docs:
             print("PAGE:", d.page_content)
 
+        print("Matches:", len(res.matches))
+        print(res.matches)
         # If no documents were returned from the vectorstore, provide a clearer debug response
         if not docs:
             logger.info("No documents matched the query")
