@@ -33,8 +33,3 @@ def render_chat():
             st.session_state.messages.append({"role":"assistant", "content":answer})
         else:
             st.error(f"Error : {response.text}")
-            # try:
-            #     st.info(f"Status code: {response.status_code}")
-            #     st.text(response.text)
-            # except Exception:
-            #     pass
