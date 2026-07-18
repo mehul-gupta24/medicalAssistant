@@ -1,8 +1,13 @@
 import streamlit as st
 from utils.api import ask_question
+from config import API_URL
 
 def render_chat():
     # st.subheader("💬 Chat with your assistant")
+
+    # # show which backend the client is calling (debug)
+    # st.info(f"Using API_URL: {API_URL}")
+
     if "message" not in st.session_state:
         st.session_state.messages = []
 
@@ -29,3 +34,8 @@ def render_chat():
             st.session_state.messages.append({"role":"assistant", "content":answer})
         else:
             st.error(f"Error : {response.text}")
+            try:
+                st.info(f"Status code: {response.status_code}")
+                st.text(response.text)
+            except Exception:
+                pass
