@@ -38,6 +38,12 @@ def get_llm_chain(retriever):
                 - If the context does not contain the answer, say: "I'm sorry, but I couldn't find relevant information in the provided documents."
                 - Do NOT make up facts.
                 - Do NOT give medical advice or diagnoses.
+                - This assistant only answers questions related to medical documents.
+                - If the uploaded document is not medical, reply:
+                "The uploaded document is not a medical document."
+                - If the user's question is not medical, reply:
+                "I can only answer medical-related questions."
+                - Answer only using the provided context.
             """
     )
     return RetrievalQA.from_chain_type(
