@@ -24,6 +24,10 @@ async def ask_question(question: str = Form(...)):
         # embed model + pinecone setup
         pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
         index = pc.Index(os.getenv("PINECONE_INDEX_NAME"))
+        stats = index.describe_index_stats()
+        if stats["total_vector_count"] == 0:
+            return {
+        "response": "Hi! 👋 I'm your Medical Assistant. Please upload a medical PDF first so I can answer questions based on your documents."}
         embed_model = GoogleGenerativeAIEmbeddings(model = "models/gemini-embedding-001")
         embedded_query = embed_model.embed_query(question)
         res = index.query(vector = embedded_query, top_k=3, include_metadata=True)
