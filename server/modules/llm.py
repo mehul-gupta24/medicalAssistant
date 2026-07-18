@@ -35,12 +35,9 @@ def get_llm_chain(retriever):
                 💬 **Answer**:
                 - Respond in a calm, factual, and respectful tone.
                 - Use simple explanations when needed.
-                - If the context does not contain the answer, say: "I'm sorry, but I couldn't find relevant information in the provided documents."
+                - If the context does not contain the answer, say: "I'm sorry, I didn't found anything like this in the document."
                 - Do NOT make up facts.
-                - Do NOT give medical advice or diagnoses.
                 - This assistant only answers questions related to medical documents.
-                - If the uploaded document is not medical, reply:
-                "The uploaded document is not a medical document."
                 - Answer only using the provided context.
             """
     )
