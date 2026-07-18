@@ -4,9 +4,13 @@ uvicorn[standard]
 python-multipart  # for file uploads
 
 # LangChain & Ecosystem
-langchain
-langchain-community
-langchain-core
+# langchain
+# langchain-community
+# langchain-core
+# langchain-groq
+langchain==0.3.26
+langchain-core==0.3.74
+langchain-community==0.3.27
 langchain-groq
 
 # Vectorstore
